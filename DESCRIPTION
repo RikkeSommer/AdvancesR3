@@ -1,0 +1,14 @@
+Package: AdvancesR3
+Title: Analysis Project for AdvancesR3
+Type: Project
+Version: 0.0.1
+Encoding: UTF-8
+Imports: 
+    dplyr,
+    fs,
+    here,
+    readr,
+    readxl,
+    snakecase,
+    stringr,
+    tidyr
