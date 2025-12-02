@@ -9,7 +9,7 @@ library(targets)
 
 # Set target options:
 tar_option_set(
-  packages = c("tibble") # Packages that your targets need for their tasks.
+  # packages = c("tibble") # Packages that your targets need for their tasks.
   # format = "qs", # Optionally set the default storage format. qs is fast.
   #
   # Pipelines that take a long time to run may benefit from
@@ -27,7 +27,7 @@ tar_option_set(
   # cluster, select a controller from the {crew.cluster} package.
   # For the cloud, see plugin packages like {crew.aws.batch}.
   # The following example is a controller for Sun Grid Engine (SGE).
-  # 
+  #
   #   controller = crew.cluster::crew_controller_sge(
   #     # Number of workers that the pipeline can scale up to:
   #     workers = 10,
@@ -48,15 +48,18 @@ tar_option_set(
 tar_source()
 # tar_source("other_functions.R") # Source other scripts as needed.
 
-# Replace the target list below with your own:
+# Replace the target list below with your own: The first step is because there is a physical file we need to load
 list(
   tar_target(
-    name = data,
-    command = tibble(x = rnorm(100), y = rnorm(100))
-    # format = "qs" # Efficient storage for general data objects.
+    name = file, #the name of the output
+    command = "data/lipidomics.csv", #the path to the csv.file
+    format = "file" #specifies pipelinesteps
   ),
   tar_target(
-    name = model,
-    command = coefficients(lm(y ~ x, data = data))
+    name = lipidomics,
+    command = readr::read_csv(file, show_col_types = FALSE) #referring to the first pipestep where we tell there is a file
   )
 )
+
+# All data, objects and information about the pipeline is stored in the _targets folder
+#targets::tar_visnetwork() we can visualize the network of how the pipeline looks
