@@ -5,7 +5,7 @@
 
 # Load packages required to define the pipeline:
 library(targets)
-# library(tarchetypes) # Load other packages as needed.
+library(tarchetypes) # Load other packages as needed.
 
 # Set target options:
 tar_option_set(
@@ -51,15 +51,19 @@ tar_source()
 # Replace the target list below with your own: The first step is because there is a physical file we need to load
 list(
   tar_target(
-    name = file, #the name of the output
-    command = "data/lipidomics.csv", #the path to the csv.file
-    format = "file" #specifies pipelinesteps
+    name = file, # the name of the output
+    command = "data/lipidomics.csv", # the path to the csv.file
+    format = "file" # specifies pipelinesteps
   ),
   tar_target(
     name = lipidomics,
-    command = readr::read_csv(file, show_col_types = FALSE) #referring to the first pipestep where we tell there is a file
+    command = readr::read_csv(file, show_col_types = FALSE) # referring to the first pipestep where we tell there is a file
+  ),
+  tar_quarto(
+    name = quarto_doc,
+    path = "docs/learning.qmd"
   )
 )
 
 # All data, objects and information about the pipeline is stored in the _targets folder
-#targets::tar_visnetwork() we can visualize the network of how the pipeline looks
+# targets::tar_visnetwork() we can visualize the network of how the pipeline looks
