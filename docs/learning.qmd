@@ -14,3 +14,12 @@ format: html
 # Code chunk
 ```
 
+## This is poorly formatted
+
+-   definitely should have an empty space above this list.
+
+-   This isn't a list. Why not?
+
+-   settings: tools, project options, markdown --\> column and true i de
+    nederste to drop down
+

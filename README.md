@@ -1,10 +1,11 @@
-TODO: Add more to the title of your project here
+TODO: Advanced learning course in R
 
 # AdvancesR3:
 
 TODO: Give a brief description of what your project is about
 
-This project...
+This project is a learning project of advanced R - how to make more
+reproducible research and better collaborations with others
 
 # Brief description of folder and file contents
 
@@ -13,16 +14,16 @@ data, docs and R folders.
 
 The following folders contain:
 
--   `data/`:
--   `docs/`:
--   `R/`:
+-   `data/`: nmr-omics data
+-   `docs/`: learning.qmd
+-   `R/`: nmr.omics.R
 
 # Installing project R package dependencies
 
 If dependencies have been managed by using
 `usethis::use_package("packagename")` through the `DESCRIPTION` file,
-installing dependencies is as easy as opening the
-`AdvancesR3.Rproj` file and running this command in the console:
+installing dependencies is as easy as opening the `AdvancesR3.Rproj`
+file and running this command in the console:
 
 ```         
 # install.packages("pak")
