@@ -56,3 +56,18 @@ clean <- function(data) {
     dplyr::summarise(value = mean(value), .groups = "keep") |>  #summér value som mean af værdierne og behold kolonnerne i group_by
     dplyr::ungroup()
 }
+
+##################################
+
+#' Title: Mean centering values for comparison
+#'
+#' @param data Lipidomics data
+#'
+#' @returns A data.frame with mean.centered values
+preprocess <- function(data) {
+  data |>
+    mutate(
+      class = as.factor(class),
+      value = scale(value)
+    )
+}

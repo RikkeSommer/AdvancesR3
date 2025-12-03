@@ -97,3 +97,36 @@ lipidomics |>
 
 clean(lipidomics)
 ```
+
+## c
+
+forskel efte rat have kørt scale() function = z-score normalisering. Gns
+bliver 0, og en enheds forskel er 1 SD væk fra mean
+
+```{r}
+lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  mutate(
+    class = as.factor(class),
+    value = scale(value) # mean centers meaning mean = 0 and 1 unit change = 1 SD dif.
+  )
+```
+
+```{r}
+just_cholesterol <- lipidomics |>
+  filter(metabolite == "Cholesterol") |>
+  preprocess()
+
+# Making a OR because we set class as a function of value and family to binomial. Exponentiate = T for at få på relativ skala
+glm(
+  formula = class ~ value,
+  data = just_cholesterol,
+  family = binomial
+) |>
+  broom::tidy(exponentiate = TRUE) |>
+  mutate(
+    metabolite = unique(just_cholesterol$metabolite),
+    model = format(class ~ value),
+    .before = everything()
+  )
+```
