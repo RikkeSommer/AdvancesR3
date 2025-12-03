@@ -66,6 +66,14 @@ ggplot2::ggplot(
 
 
 # Use it like, which should give the same output as before.
-create_plot_distributions(lipidomics, metabolite, value)
+create_plot_distributions(lipidomics, metabolite)
+
+```
+
+## Results: Distribution plot
+
+```{r}
+
+tar_read(plot_distributions)
 
 ```

@@ -29,9 +29,9 @@ create_table_descriptive_stats <- function(data, col) {
 #' @export
 #'
 #' @examples
-create_plot_distributions <- function(data, col, value) {
+create_plot_distributions <- function(data, col) {
   data |>
-    ggplot2::ggplot(ggplot2::aes(x = {{value}})
+    ggplot2::ggplot(ggplot2::aes(x = value)
     ) +
     ggplot2::geom_histogram() +
     ggplot2::facet_wrap(ggplot2::vars({{col}}), scales = "free") + # free: for each it can define its own axis values. facetwrap is the one we want to "group:by"
