@@ -71,3 +71,25 @@ preprocess <- function(data) {
       value = scale(value)
     )
 }
+
+#########################
+#' Title function to create a model
+#'
+#' @param data lipidomics data
+#' @param model OR
+#'
+#' @returns
+
+fit_model = function(data, model) {
+  stats::glm(
+    formula = model,
+    data = data,
+    family = binomial
+  ) |>
+    broom::tidy(exponentiate = TRUE) |>
+    mutate(
+      metabolite = unique(data$metabolite),
+      model = format(model),
+      .before = dplyr::everything()
+    )
+}
