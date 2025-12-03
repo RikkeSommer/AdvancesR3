@@ -16,3 +16,27 @@ create_table_descriptive_stats <- function(data, col) {
     dplyr::mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |> # sætter de to sammen i én værdi i tabellen og parenteserne er for at få sd i en parentes
     dplyr::select(Metabolite = {{ col }}, "Mean SD" = MeanSD) # "nyt navn = col i data", man vælger i select det, der skal være output i tabellen
 }
+
+######################################
+
+#' Making a histogram
+#'
+#' @param data the dataset (here lipidomics)
+#' @param col the varibale to group by
+#' @param value the value that should be as a histogram
+#'
+#' @returns A histogram
+#' @export
+#'
+#' @examples
+create_plot_distributions <- function(data, col, value) {
+  data |>
+    ggplot2::ggplot(ggplot2::aes(x = {{value}})
+    ) +
+    ggplot2::geom_histogram() +
+    ggplot2::facet_wrap(ggplot2::vars({{col}}), scales = "free") + # free: for each it can define its own axis values. facetwrap is the one we want to "group:by"
+    ggplot2::theme_minimal()
+
+}
+
+################################################

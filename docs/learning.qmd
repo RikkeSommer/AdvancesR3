@@ -59,3 +59,13 @@ ggplot2::ggplot(
   facet_wrap(vars(metabolite), scales = "free") + # free: for each it can define its own axis values. facetwrap is the one we want to "group:by"
   theme_minimal()
 ```
+
+## Making the histogram into a function
+
+```{r}
+
+
+# Use it like, which should give the same output as before.
+create_plot_distributions(lipidomics, metabolite, value)
+
+```
