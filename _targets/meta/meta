@@ -1,5 +1,7 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 file|stem|c44b806f3841f535|09442fac263aded2|2c530c1562a7fbd1|1735323524|data/lipidomics.csv|t20415.5864674052s|s24277b|24277|file|local|vector|||0||
 lipidomics|stem|1f663c2a4b775c73|0adf46d83f39a429|e88672c19d0c6d6c|-1498393010||t20424.5855504854s|s4884b|4884|rds|local|vector|||0.3||
-.Random.seed|object|73a617bea374de9b
-quarto_doc|stem|7256e857bc8810a3|7d7691b957727962|dfbfc806e4595c99|1582462002|docs/learning.html*docs/learning.qmd|t20425.3614900289s|s25704b|25704|file|local|vector|||8.08||
+table_descriptive_stats|stem|6f5eef0191f2e95e|1b4073d2294bf697|8bdd0646fb93c711|1291134815||t20425.3923561584s|s417b|417|rds|local|vector|||0.02||
+.Random.seed|object|d5d164f48fb54ce3
+create_table_descriptive_stats|function|9b9174d1770525f3
+quarto_doc|stem|b23998a95828bd44|946569ef20e4a1f9|b48498be53df4808|1582462002|docs/learning.html*docs/learning.qmd|t20425.4107150555s|s32175b|32175|file|local|vector|||9.33||

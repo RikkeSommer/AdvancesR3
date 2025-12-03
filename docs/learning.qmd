@@ -6,6 +6,9 @@ format: html
 
 ## Header 1
 
+General notes - settings: tools, project options, markdown --\> column
+and true i de nederste to drop down
+
 ```{r setup}
 library(tidyverse)
 library(targets)
@@ -30,17 +33,29 @@ lipidomics |>
 ## function to create table1
 
 ```{r}
-
-
-# Use it like this, which should give the same output as before.
+# Function creating a meanSD outout. The two variables wpcified is the dataset and group_by. Need the "value" column to be generic cause "value" is
 create_table_descriptive_stats(lipidomics, metabolite)
 ```
 
-## This is poorly formatted
+## Result: basic stats table
 
--   definitely should have an empty space above this list.
+```{r}
+tar_read(table_descriptive_stats) |>
+  knitr::kable(
+    caption = "The mean and SD of metabolites in the lipidomics dataset."
+  )
+```
 
--   This isn't a list. Why not?
+## plot of distribution
 
--   settings: tools, project options, markdown --\> column and true i de
-    nederste to drop down
+Histogram
+
+```{r}
+ggplot2::ggplot(
+  lipidomics,
+  ggplot2::aes(x = value)
+) +
+  geom_histogram() +
+  facet_wrap(vars(metabolite), scales = "free") + # free: for each it can define its own axis values. facetwrap is the one we want to "group:by"
+  theme_minimal()
+```

@@ -107,6 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="header-1" class="level2">
 <h2 class="anchored" data-anchor-id="header-1">Header 1</h2>
+<p>General notes - settings: tools, project options, markdown –&gt; column and true i de nederste to drop down</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -156,13 +157,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="this-is-poorly-formatted" class="level2">
-<h2 class="anchored" data-anchor-id="this-is-poorly-formatted">This is poorly formatted</h2>
-<ul>
-<li><p>definitely should have an empty space above this list.</p></li>
-<li><p>This isn’t a list. Why not?</p></li>
-<li><p>settings: tools, project options, markdown –&gt; column and true i de nederste to drop down</p></li>
-</ul>
+<section id="function-to-create-table1" class="level2">
+<h2 class="anchored" data-anchor-id="function-to-create-table1">function to create table1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function creating a meanSD outout. The two variables wpcified is the dataset and group_by. Need the "value" column to be generic cause "value" is</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_table_descriptive_stats</span>(lipidomics, metabolite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   Metabolite               `Mean SD`   
+   &lt;chr&gt;                    &lt;glue&gt;      
+ 1 CDCl3 (solvent)          180 (67)    
+ 2 Cholesterol              18.6 (11.4) 
+ 3 FA -CH2CH2COO-           33.6 (7.8)  
+ 4 Lipid -CH2-              536.6 (61.9)
+ 5 Lipid CH3- 1             98.3 (73.8) 
+ 6 Lipid CH3- 2             168.2 (29.2)
+ 7 MUFA+PUFA                32.9 (16.1) 
+ 8 PUFA                     30 (24.1)   
+ 9 Phosphatidycholine       31.7 (20.5) 
+10 Phosphatidylethanolamine 10 (7.6)    
+11 Phospholipids            2.7 (2.6)   
+12 TMS (internal standard)  123 (130.4) </code></pre>
+</div>
+</div>
+</section>
+<section id="result-basic-stats-table" class="level2">
+<h2 class="anchored" data-anchor-id="result-basic-stats-table">Result: basic stats table</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(table_descriptive_stats) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"The mean and SD of metabolites in the lipidomics dataset."</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>The mean and SD of metabolites in the lipidomics dataset.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metabolite</th>
+<th style="text-align: left;">Mean SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">CDCl3 (solvent)</td>
+<td style="text-align: left;">180 (67)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">18.6 (11.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FA -CH2CH2COO-</td>
+<td style="text-align: left;">33.6 (7.8)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lipid -CH2-</td>
+<td style="text-align: left;">536.6 (61.9)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lipid CH3- 1</td>
+<td style="text-align: left;">98.3 (73.8)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lipid CH3- 2</td>
+<td style="text-align: left;">168.2 (29.2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MUFA+PUFA</td>
+<td style="text-align: left;">32.9 (16.1)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PUFA</td>
+<td style="text-align: left;">30 (24.1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Phosphatidycholine</td>
+<td style="text-align: left;">31.7 (20.5)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Phosphatidylethanolamine</td>
+<td style="text-align: left;">10 (7.6)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Phospholipids</td>
+<td style="text-align: left;">2.7 (2.6)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TMS (internal standard)</td>
+<td style="text-align: left;">123 (130.4)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="plot-of-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="plot-of-distribution">plot of distribution</h2>
+<p>Histogram</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  lipidomics,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> value)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(metabolite), <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span> <span class="co"># free: for each it can define its own axis values. facetwrap is the one we want to "group:by"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="learning_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 
 </main>

@@ -63,7 +63,11 @@ list(
     name = quarto_doc,
     path = "docs/learning.qmd"
   )
-)
+,
+tar_target(
+  name = table_descriptive_stats,
+  command = create_table_descriptive_stats(lipidomics, metabolite)
+))
 
 # All data, objects and information about the pipeline is stored in the _targets folder
 # targets::tar_visnetwork() we can visualize the network of how the pipeline looks

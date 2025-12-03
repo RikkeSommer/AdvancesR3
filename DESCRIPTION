@@ -6,6 +6,7 @@ Encoding: UTF-8
 Imports: 
     dplyr,
     fs,
+    ggplot2,
     glue,
     here,
     quarto,
@@ -15,7 +16,8 @@ Imports:
     stringr,
     tarchetypes,
     targets,
-    tidyr
+    tidyr,
+    tidyselect
 Suggests: 
     gitcreds,
     styler,
