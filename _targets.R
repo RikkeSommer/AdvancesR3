@@ -57,8 +57,9 @@ list(
   ),
   tar_target(
     name = lipidomics,
-    command = readr::read_csv(file, show_col_types = FALSE) # referring to the first pipestep where we tell there is a file
-  ),
+    command = readr::read_csv(file, show_col_types = FALSE) |>  # referring to the first pipestep where we tell there is a file
+  clean()
+      ),
   tar_quarto(
     name = quarto_doc,
     path = "docs/learning.qmd"
@@ -71,6 +72,7 @@ list(
     name = plot_distributions,
     command = create_plot_distributions(lipidomics, metabolite)
   )
+
 )
 
 # All data, objects and information about the pipeline is stored in the _targets folder

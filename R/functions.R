@@ -40,3 +40,19 @@ create_plot_distributions <- function(data, col) {
 }
 
 ################################################
+
+
+#' Title Cleaning data: values to mean values of each metabolite
+#'
+#' @param data lipidomics data frame
+#'
+#' @returns a dataframe with mean values
+#' @export
+#'
+#' @examples
+clean <- function(data) {
+  data |>
+    dplyr::group_by(dplyr::pick(-value)) |>  #grupper på alt andet end value
+    dplyr::summarise(value = mean(value), .groups = "keep") |>  #summér value som mean af værdierne og behold kolonnerne i group_by
+    dplyr::ungroup()
+}

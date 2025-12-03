@@ -63,17 +63,37 @@ ggplot2::ggplot(
 ## Making the histogram into a function
 
 ```{r}
-
-
 # Use it like, which should give the same output as before.
 create_plot_distributions(lipidomics, metabolite)
-
 ```
 
 ## Results: Distribution plot
 
 ```{r}
-
 tar_read(plot_distributions)
+```
 
+## Preparing the data for linear regression
+
+```{r}
+lipidomics |>
+  count(code, metabolite) |>
+  filter(n > 1)
+```
+
+Making the values to means
+
+```{r}
+lipidomics |>
+  group_by(pick(-value)) |> # grupper på alt andet end value
+  summarise(value = mean(value), .groups = "keep") |> # summér value som mean af værdierne og behold kolonnerne i group_by
+  ungroup()
+```
+
+## cleaning function
+
+```{r}
+# using the clean function to get the means
+
+clean(lipidomics)
 ```

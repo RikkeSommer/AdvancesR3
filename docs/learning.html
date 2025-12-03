@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    Metabolite               `Mean SD`   
    &lt;chr&gt;                    &lt;glue&gt;      
  1 CDCl3 (solvent)          180 (67)    
- 2 Cholesterol              18.6 (11.4) 
+ 2 Cholesterol              18.6 (5.2)  
  3 FA -CH2CH2COO-           33.6 (7.8)  
  4 Lipid -CH2-              536.6 (61.9)
  5 Lipid CH3- 1             98.3 (73.8) 
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    Metabolite               `Mean SD`   
    &lt;chr&gt;                    &lt;glue&gt;      
  1 CDCl3 (solvent)          180 (67)    
- 2 Cholesterol              18.6 (11.4) 
+ 2 Cholesterol              18.6 (5.2)  
  3 FA -CH2CH2COO-           33.6 (7.8)  
  4 Lipid -CH2-              536.6 (61.9)
  5 Lipid CH3- 1             98.3 (73.8) 
@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">Cholesterol</td>
-<td style="text-align: left;">18.6 (11.4)</td>
+<td style="text-align: left;">18.6 (5.2)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">FA -CH2CH2COO-</td>
@@ -304,6 +304,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="learning_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</section>
+<section id="preparing-the-data-for-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-the-data-for-linear-regression">Preparing the data for linear regression</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lipidomics <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(code, metabolite) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 3
+# ℹ 3 variables: code &lt;chr&gt;, metabolite &lt;chr&gt;, n &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Making the values to means</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lipidomics <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">pick</span>(<span class="sc">-</span>value)) <span class="sc">|&gt;</span> <span class="co"># grupper på alt andet end value</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value), <span class="at">.groups =</span> <span class="st">"keep"</span>) <span class="sc">|&gt;</span> <span class="co"># summér value som mean af værdierne og behold kolonnerne i group_by</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 432 × 6
+   code   gender   age class metabolite                value
+   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                     &lt;dbl&gt;
+ 1 ERI109 M         25 CT    CDCl3 (solvent)          166.  
+ 2 ERI109 M         25 CT    Cholesterol               18.6 
+ 3 ERI109 M         25 CT    FA -CH2CH2COO-            31.6 
+ 4 ERI109 M         25 CT    Lipid -CH2-              587.  
+ 5 ERI109 M         25 CT    Lipid CH3- 1              44.1 
+ 6 ERI109 M         25 CT    Lipid CH3- 2             147.  
+ 7 ERI109 M         25 CT    MUFA+PUFA                 50.6 
+ 8 ERI109 M         25 CT    PUFA                      29.0 
+ 9 ERI109 M         25 CT    Phosphatidycholine        41.7 
+10 ERI109 M         25 CT    Phosphatidylethanolamine   6.78
+# ℹ 422 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="cleaning-function" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-function">cleaning function</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using the clean function to get the means</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">clean</span>(lipidomics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 432 × 6
+   code   gender   age class metabolite                value
+   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                     &lt;dbl&gt;
+ 1 ERI109 M         25 CT    CDCl3 (solvent)          166.  
+ 2 ERI109 M         25 CT    Cholesterol               18.6 
+ 3 ERI109 M         25 CT    FA -CH2CH2COO-            31.6 
+ 4 ERI109 M         25 CT    Lipid -CH2-              587.  
+ 5 ERI109 M         25 CT    Lipid CH3- 1              44.1 
+ 6 ERI109 M         25 CT    Lipid CH3- 2             147.  
+ 7 ERI109 M         25 CT    MUFA+PUFA                 50.6 
+ 8 ERI109 M         25 CT    PUFA                      29.0 
+ 9 ERI109 M         25 CT    Phosphatidycholine        41.7 
+10 ERI109 M         25 CT    Phosphatidylethanolamine   6.78
+# ℹ 422 more rows</code></pre>
 </div>
 </div>
 </section>
