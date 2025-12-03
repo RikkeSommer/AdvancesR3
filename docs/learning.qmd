@@ -7,14 +7,24 @@ format: html
 ## Header 1
 
 ```{r setup}
+library(tidyverse)
 library(targets)
-tar_config_set(store = here::here("_targets")) #telling where the target is stored
+tar_config_set(store = here::here("_targets")) # telling where the target is stored
 source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
 
+## Making a table
+
+shortcut to find names: colnames("dataset")
+
 ```{r}
-# Code chunk
+lipidomics |>
+  group_by(metabolite) |>
+  summarise(across(value, list(mean = mean, sd = sd))) |>
+  mutate(across(where(is.numeric), \(x) round(x, digits = 1))) |> # runder alle numereiske værdier til 1 decimal
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) |> # sætter de to sammen i én værdi i tabellen og parenteserne er for at få sd i en parentes
+  select(Metabolite = metabolite, "Mean SD" = MeanSD) # "nyt navn = col i data", man vælger i select det, der skal være output i tabellen
 ```
 
 ## This is poorly formatted
