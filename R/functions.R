@@ -66,7 +66,7 @@ clean <- function(data) {
 #' @returns A data.frame with mean.centered values
 preprocess <- function(data) {
   data |>
-    mutate(
+    dplyr::mutate(
       class = as.factor(class),
       value = scale(value)
     )
@@ -87,9 +87,24 @@ fit_model = function(data, model) {
     family = binomial
   ) |>
     broom::tidy(exponentiate = TRUE) |>
-    mutate(
+    dplyr::mutate(
       metabolite = unique(data$metabolite),
       model = format(model),
       .before = dplyr::everything()
     )
+}
+
+#########################
+
+#' Title Cholesterol model
+#'
+#' @param data lipidomics
+#'
+#' @returns results for cholesterols
+
+create_model_results = function(data) {
+  data |>
+    dplyr::filter(metabolite == "Cholesterol") |>
+    preprocess() |>
+    fit_model(class ~ value)
 }

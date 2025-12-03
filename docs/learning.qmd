@@ -134,9 +134,11 @@ glm(
 Test
 
 ```{r}
-lipidomics |>
-  filter(metabolite == "Cholesterol") |>
-  preprocess() |>
-  fit_model(class ~ value)
+
 ```
 
+Test
+
+```{r}
+create_model_results(lipidomics)
+```
