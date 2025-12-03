@@ -27,6 +27,15 @@ lipidomics |>
   select(Metabolite = metabolite, "Mean SD" = MeanSD) # "nyt navn = col i data", man vælger i select det, der skal være output i tabellen
 ```
 
+## function to create table1
+
+```{r}
+
+
+# Use it like this, which should give the same output as before.
+create_table_descriptive_stats(lipidomics, metabolite)
+```
+
 ## This is poorly formatted
 
 -   definitely should have an empty space above this list.
